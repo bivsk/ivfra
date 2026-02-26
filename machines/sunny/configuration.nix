@@ -1,7 +1,3 @@
-{
-  imports = [
-
-  ];
-
-  # New machine!
+_: {
+  networking.hostName = "sunny";
 }
