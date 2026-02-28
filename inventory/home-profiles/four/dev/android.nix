@@ -1,11 +1,8 @@
+{ pkgs, ... }:
 {
-  pkgs,
-  ...
-}:
-{
-  environment.systemPackages = [
-    pkgs.jmtpfs
+  home.packages = [
     pkgs.android-tools
+    pkgs.jmtpfs
   ];
 
   # TODO: make statix stop whining about this

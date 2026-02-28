@@ -1,7 +1,6 @@
 _:
 let
   roster-users = {
-
     four = {
       description = "Four";
       defaultUid = 1000;
@@ -13,7 +12,8 @@ let
         "kvm"
       ];
       sshAuthorizedKeys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILYzh3yIsSTOYXkJMFHBKzkakoDfonm3/RED5rqMqhIO britton@framework"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPgHRgDdmenFi5SH02Rrja7iICXUAQQJqdQACPLY9S/1 four@robin"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJdipg6qr0s4he1E/k38S1wR+viUH/dycyMRYmWQQdKv bivsk@tutanota.com"
       ];
       defaultPosition = "owner";
       defaultShell = "bash";
@@ -21,7 +21,6 @@ let
   };
 
   roster-machines = {
-    # ========== Britton Machines ===========
     merry = {
       users = {
         four = {
@@ -29,11 +28,11 @@ let
             enable = true;
             profiles = [
               "base"
-              # "dev"
+              "dev"
               # "hyprland"
               # "hypr-laptop"
-              # "niri"
-              # "social"
+              "niri"
+              "social"
             ];
           };
         };
@@ -56,11 +55,11 @@ let
             enable = true;
             profiles = [
               "base"
-              # "dev"
+              "dev"
               # "hyprland"
               # "niri"
               # "creative"
-              # "social"
+              "social"
             ];
           };
         };

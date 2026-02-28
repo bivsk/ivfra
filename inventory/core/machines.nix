@@ -5,16 +5,18 @@ _: {
       tags = [
         "amdgpu"
         "core"
-        # "crypto"
+        "crypto"
         "desktop"
-        # "dev"
-        # "laptop"
-        # "media"
-        # "password-manager"
-        # "stylix"
+        "dev"
+        "gaming"
+        "laptop"
+        "media"
+        "niri"
+        "password-manager"
+        "stylix"
       ];
       deploy = {
-        targetHost = "root@127.0.0.1";
+        targetHost = "root@merry";
         buildHost = "";
       };
     };
@@ -23,19 +25,19 @@ _: {
       name = "sunny";
       tags = [
         "amdgpu"
-        "android"
         "core"
         "cross"
         "crypto"
         "desktop"
         "dev"
         "docker"
+        "gaming"
         "media"
-        # "password-manager"
+        "password-manager"
         "stylix"
       ];
       deploy = {
-        targetHost = "root@sunny";
+        targetHost = "root@127.0.0.1";
         buildHost = "";
       };
     };

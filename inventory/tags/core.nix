@@ -76,8 +76,6 @@
     # networking
     curl
     rsync
-    wget
-    wgetpaste
     wireguard-tools
 
     # misc

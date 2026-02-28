@@ -36,10 +36,12 @@
     cul = "clan machines update $hostname --target-host localhost";
   };
 
+  # Enable Nushell
   programs.nushell = {
     enable = true;
   };
 
+  # Misc. shell programs
   programs = {
     bat = {
       enable = true;
@@ -47,6 +49,19 @@
         pager = "never";
         style = "numbers,changes,header";
       };
+    };
+
+    carapace = {
+      enable = true;
+      enableNushellIntegration = true;
+    };
+
+    zoxide = {
+      enable = true;
+      enableNushellIntegration = true;
+      options = [
+        "--cmd cd"
+      ];
     };
   };
 

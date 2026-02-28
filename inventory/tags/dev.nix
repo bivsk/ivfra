@@ -3,7 +3,6 @@
   programs.direnv.enable = true;
   environment.systemPackages = with pkgs; [
     bind
-    claude-code
     comma
     dig
     ethtool
@@ -11,9 +10,7 @@
     lsof
     nixpkgs-review
     net-tools
-    nix-output-monitor
     nmap
     socat
-    traceroute
   ];
 }
