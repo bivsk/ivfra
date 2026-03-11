@@ -12,8 +12,6 @@
   services.gnome.gnome-keyring.enable = true;
 
   environment.systemPackages = with pkgs; [
-    alacritty
-    fuzzel
     swaylock
     mako
     swayidle

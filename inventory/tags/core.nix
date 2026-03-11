@@ -97,6 +97,10 @@
       openFirewall = true;
     };
 
+    # Yubikey
+    pcscd.enable = true;
+    udev.packages = [ pkgs.yubikey-personalization ];
+
     # Enable SSH Agent forwarding on the server side
     openssh.settings.AllowAgentForwarding = true;
 

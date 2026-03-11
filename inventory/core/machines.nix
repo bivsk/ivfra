@@ -16,7 +16,7 @@ _: {
         "stylix"
       ];
       deploy = {
-        targetHost = "root@merry";
+        targetHost = "root@192.168.0.29";
         buildHost = "";
       };
     };
@@ -24,6 +24,7 @@ _: {
     sunny = {
       name = "sunny";
       tags = [
+        # "kanidm-server"
         "amdgpu"
         "calibre"
         "core"

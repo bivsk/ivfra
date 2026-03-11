@@ -1,6 +1,6 @@
 _: {
-  services.yubikey-agent = {
-    enable = true;
+  services = {
+    yubikey-agent.enable = true;
   };
 
   # Additional SSH configuration to use yubikey-agent
