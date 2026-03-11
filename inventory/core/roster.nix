@@ -29,8 +29,7 @@ let
             profiles = [
               "base"
               "dev"
-              # "hyprland"
-              # "hypr-laptop"
+              "gaming"
               "niri"
               "social"
             ];
@@ -56,27 +55,15 @@ let
             profiles = [
               "base"
               "dev"
-              # "hyprland"
-              # "niri"
-              # "creative"
+              "gaming"
+              "niri"
               "social"
             ];
           };
         };
       };
       homeManagerOptions = {
-        sharedModules = [
-          {
-            wayland.windowManager.hyprland.settings = {
-              monitor = [
-                ",preferred,auto,1"
-              ];
-              xwayland = {
-                force_zero_scaling = true;
-              };
-            };
-          }
-        ];
+        sharedModules = [ ];
       };
     };
   };

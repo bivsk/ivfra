@@ -12,7 +12,7 @@
       push.autoSetupRemote = true;
       core.editor = "nvim";
 
-      aliases = {
+      alias = {
         o = "checkout";
         c = "commit";
         cm = "commit --message";

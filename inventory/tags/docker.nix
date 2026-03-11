@@ -1,4 +1,8 @@
-{ pkgs, ... }:
+{
+  lib,
+  pkgs,
+  ...
+}:
 {
   virtualisation.docker = {
     enable = true;
@@ -65,8 +69,8 @@
   boot.kernel.sysctl = {
     "net.bridge.bridge-nf-call-iptables" = 1;
     "net.bridge.bridge-nf-call-ip6tables" = 1;
-    "net.ipv4.ip_forward" = 1;
-    "net.ipv6.conf.all.forwarding" = 1;
+    "net.ipv4.ip_forward" = lib.mkForce 1;
+    "net.ipv6.conf.all.forwarding" = lib.mkForce 1;
   };
 
   security = {

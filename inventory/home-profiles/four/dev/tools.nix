@@ -34,6 +34,12 @@
     info.enable = true;
   };
 
+  # Nix search
+  programs = {
+    nix-search-tv.enable = true;
+    television.enable = true;
+  };
+
   # Lazygit
   programs.lazygit.enable = true;
   home.shellAliases = {

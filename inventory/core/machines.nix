@@ -25,6 +25,7 @@ _: {
       name = "sunny";
       tags = [
         "amdgpu"
+        "calibre"
         "core"
         "cross"
         "crypto"
@@ -32,7 +33,10 @@ _: {
         "dev"
         "docker"
         "gaming"
+        "hercules-ci-agent"
         "media"
+        "niri"
+        "nixarr"
         "password-manager"
         "stylix"
       ];

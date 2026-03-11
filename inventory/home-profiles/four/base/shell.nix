@@ -23,17 +23,18 @@
     gl = "git log --oneline --graph";
 
     # Wrap better defaults
-    cat = "bat -pp"; # plain and no pager
     grep = "grep --color=auto";
-    df = "df --human-readable";
-    du = "du --human-readable";
+
+    # TODO: not compatible with nushell
+    # df = "df --human-readable";
+    # du = "du --human-readable";
 
     # General
     c = "clear";
     v = "validate";
     cmu = "clan machines update";
-    cu = "clan machines update $hostname";
-    cul = "clan machines update $hostname --target-host localhost";
+    # cu = "clan machines update $hostname";
+    # cul = "clan machines update $hostname --target-host localhost";
   };
 
   # Enable Nushell
@@ -43,14 +44,6 @@
 
   # Misc. shell programs
   programs = {
-    bat = {
-      enable = true;
-      config = {
-        pager = "never";
-        style = "numbers,changes,header";
-      };
-    };
-
     carapace = {
       enable = true;
       enableNushellIntegration = true;
@@ -67,6 +60,7 @@
 
   home.packages = with pkgs; [
     eza
+    fastfetch
     fzf
     jq
   ];

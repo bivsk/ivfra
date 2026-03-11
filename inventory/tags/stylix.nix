@@ -43,6 +43,6 @@ in
       dark = "Tela";
     };
 
-    opacity = lib.genAttrs [ "applications" "desktop" "popups" "terminal" ] (_n: 0.85);
+    opacity = lib.genAttrs [ "applications" "desktop" "popups" "terminal" ] (_n: 1.0);
   };
 }

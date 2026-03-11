@@ -59,11 +59,10 @@
 
     # Additional monitoring tools for AI workloads
     nvtopPackages.amd # AMD GPU monitoring (nvtop with AMD support)
-    btop # System resource monitoring with GPU support
 
     # GPU stress testing and benchmarking
     vulkan-tools # Vulkan utilities
-    vkmark # Vulkan benchmarking tool
+    # vkmark # Vulkan benchmarking tool
   ];
 
   # Environment variables for ROCm/OpenCL/Vulkan

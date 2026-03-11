@@ -1,9 +1,7 @@
 { pkgs, ... }:
 {
-  programs.light.enable = true;
-
   # Faster WiFi reconnection and better power management
-  networking.networkmanager.wifi.backend = "iwd";
+  # networking.networkmanager.wifi.backend = "iwd";
 
   services = {
     power-profiles-daemon.enable = true;

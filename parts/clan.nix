@@ -11,16 +11,19 @@
 
       # Build clan
       clanModule = inputs.clan-core.lib.clan {
+        inherit self modules;
         meta.name = "IVfra";
 
-        inherit self;
-        inherit modules;
+        inventory = import "${self}/inventory" { inherit inputs; };
+
+        secrets.age.plugins = [
+          "age-plugin-yubikey"
+          "age-plugin-fido2-hmac"
+        ];
         specialArgs = {
           inherit inputs;
           wrappers = inputs.wrappers.wrapperModules;
         };
-
-        inventory = import "${self}/inventory" { inherit inputs; };
       };
     in
     {

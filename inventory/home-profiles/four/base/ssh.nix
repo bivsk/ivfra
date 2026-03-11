@@ -11,6 +11,8 @@ _: {
     matchBlocks = {
       "*" = {
         addKeysToAgent = "yes";
+        compression = true;
+        forwardAgent = true;
       };
     };
   };
