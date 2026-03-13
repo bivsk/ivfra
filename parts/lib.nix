@@ -32,13 +32,8 @@
     };
 
     # User/roster utilities
-    roster = {
-      # Get all user names from roster
-      users =
-        let
-          roster = import ../inventory/core/roster.nix { };
-        in
-        builtins.attrNames roster;
+    users = {
+      names = [ "four" ];
     };
 
     # Flake input passthrough for downstream use

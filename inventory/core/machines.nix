@@ -6,6 +6,7 @@ _: {
         "core"
         "nixarr-nginx"
         "tailnet-bivsk"
+        "hm-server"
       ];
       deploy = {
         targetHost = "root@watch.bivsk.com";
@@ -28,6 +29,7 @@ _: {
         "password-manager"
         "stylix"
         "tailnet-bivsk"
+        "hm-laptop"
       ];
       deploy = {
         targetHost = "root@192.168.0.29";
@@ -55,6 +57,7 @@ _: {
         "password-manager"
         "stylix"
         "tailnet-bivsk"
+        "hm-desktop"
       ];
       deploy = {
         targetHost = "root@127.0.0.1";

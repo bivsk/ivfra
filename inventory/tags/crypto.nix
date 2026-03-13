@@ -5,13 +5,9 @@
   services.trezord.enable = true;
 
   # Install wallets
-  home-manager.sharedModules = [
-    {
-      home.packages = with pkgs; [
-        ledger-live-desktop
-        monero-cli
-        trezor-suite
-      ];
-    }
+  environment.systemPackages = with pkgs; [
+    ledger-live-desktop
+    monero-cli
+    trezor-suite
   ];
 }

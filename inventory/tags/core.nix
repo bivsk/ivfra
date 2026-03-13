@@ -130,6 +130,19 @@
     };
   };
 
+  users = {
+    users.four = {
+      group = "four";
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJdipg6qr0s4he1E/k38S1wR+viUH/dycyMRYmWQQdKv bivsk@tutanota.com"
+      ];
+    };
+    groups.four = { };
+    users.root.openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJdipg6qr0s4he1E/k38S1wR+viUH/dycyMRYmWQQdKv bivsk@tutanota.com"
+    ];
+  };
+
   time.timeZone = "America/New_York";
 
   i18n.defaultLocale = "en_US.UTF-8";
