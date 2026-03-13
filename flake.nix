@@ -5,7 +5,7 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     clan-core = {
-      url = "https://git.clan.lol/clan/clan-core/archive/main.tar.gz";
+      url = "git+https://git.clan.lol/clan/clan-core?ref=main";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";

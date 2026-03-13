@@ -21,6 +21,22 @@ let
   };
 
   roster-machines = {
+    baratie = {
+      users = {
+        four = {
+          homeManager = {
+            enable = true;
+            profiles = [
+              "base"
+            ];
+          };
+        };
+      };
+      # homeManagerOptions = {
+      #   sharedModules = [
+      #   ];
+      # };
+    };
     merry = {
       users = {
         four = {

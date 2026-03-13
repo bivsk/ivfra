@@ -1,5 +1,18 @@
 _: {
   machines = {
+    baratie = {
+      name = "baratie";
+      tags = [
+        "core"
+        "nixarr-nginx"
+        "tailnet-bivsk"
+      ];
+      deploy = {
+        # targetHost = "root@watch.bivsk.com";
+        buildHost = "root@sunny";
+      };
+    };
+
     merry = {
       name = "merry";
       tags = [
@@ -14,9 +27,10 @@ _: {
         "niri"
         "password-manager"
         "stylix"
+        "tailnet-bivsk"
       ];
       deploy = {
-        targetHost = "root@192.168.0.29";
+        # targetHost = "root@192.168.0.29";
         buildHost = "";
       };
     };
@@ -40,6 +54,7 @@ _: {
         "nixarr"
         "password-manager"
         "stylix"
+        "tailnet-bivsk"
       ];
       deploy = {
         targetHost = "root@127.0.0.1";
