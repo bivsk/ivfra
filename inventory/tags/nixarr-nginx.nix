@@ -17,7 +17,7 @@
         forceSSL = true;
         enableACME = true;
         locations."/" = {
-          proxyPass = "sunny:8096";
+          proxyPass = "http://sunny:8096";
           extraConfig = ''
             proxy_buffering off;
           '';
@@ -38,7 +38,7 @@
           proxy_set_header X-Forwarded-Ssl on;
         '';
         locations."/" = {
-          proxyPass = "http://10.0.0.2:5055";
+          proxyPass = "http://sunny:5055";
         };
       };
 
@@ -52,7 +52,7 @@
           proxy_set_header X-Forwarded-Ssl on;
         '';
         locations."/" = {
-          proxyPass = "http://10.0.0.2:7878";
+          proxyPass = "http://sunny:7878";
         };
       };
 
@@ -66,7 +66,7 @@
           proxy_set_header X-Forwarded-Ssl on;
         '';
         locations."/" = {
-          proxyPass = "http://10.0.0.2:8989";
+          proxyPass = "http://sunny:8989";
         };
       };
     };

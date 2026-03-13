@@ -8,7 +8,7 @@ _: {
         "tailnet-bivsk"
       ];
       deploy = {
-        # targetHost = "root@watch.bivsk.com";
+        targetHost = "root@watch.bivsk.com";
         buildHost = "root@sunny";
       };
     };
@@ -30,7 +30,7 @@ _: {
         "tailnet-bivsk"
       ];
       deploy = {
-        # targetHost = "root@192.168.0.29";
+        targetHost = "root@192.168.0.29";
         buildHost = "";
       };
     };
