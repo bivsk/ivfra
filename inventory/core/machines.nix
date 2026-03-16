@@ -4,6 +4,7 @@ _: {
       name = "baratie";
       tags = [
         "core"
+        "kanidm"
         "nixarr-nginx"
         "tailnet-bivsk"
         "hm-server"

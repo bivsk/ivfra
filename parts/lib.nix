@@ -31,7 +31,7 @@
         map (name: builtins.replaceStrings [ ".nix" ] [ "" ] name) nixFiles;
     };
 
-    # User/roster utilities
+    # TODO: get this out of here
     users = {
       names = [ "four" ];
     };

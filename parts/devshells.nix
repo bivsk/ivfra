@@ -21,6 +21,7 @@ _: {
             config.packages.roster
             pkgs.jq
             pkgs.statix
+            pkgs.kanidmWithSecretProvisioning_1_9
             (pkgs.writeShellScriptBin "nix-prefetch-sri" ''
               if [ -z "$1" ]; then
                 echo "Usage: nix-prefetch-sri <url>"

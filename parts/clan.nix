@@ -18,7 +18,6 @@
 
         secrets.age.plugins = [
           "age-plugin-yubikey"
-          "age-plugin-fido2-hmac"
         ];
         specialArgs = {
           inherit inputs;
