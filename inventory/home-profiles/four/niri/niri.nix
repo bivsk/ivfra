@@ -1,129 +1,237 @@
 {
+  inputs,
   lib,
   pkgs,
   ...
 }:
+let
+  wrappedNiri =
+    (inputs.wrappers.wrapperModules.niri.apply {
+      inherit pkgs;
+      settings = {
+        hotkey-overlay.skip-at-startup = true;
+        clipboard.disable-primary = true;
+        prefer-no-csd = true;
+        screenshot-path = "~/pictures/screenshots/%Y-%m-%dT%H:%M:%S.png";
+        xwayland-satellite.path = "${lib.getExe pkgs.xwayland-satellite-unstable}";
+
+        input.keyboard = {
+          numlock = true;
+          repeat-delay = 400;
+          repeat-rate = 30;
+        };
+
+        overview.zoom = 0.7;
+
+        layout = {
+          empty-workspace-above-first = [ ];
+        };
+
+        spawn-at-startup = [
+          "noctalia-shell"
+          "${pkgs.polkit_gnome}/bin/polkit-gnome-authentication-agent-1"
+          "${pkgs.networkmanagerapplet}/bin/nm-applet"
+          "${pkgs.blueman}/bin/blueman-applet"
+          [
+            "${pkgs.wl-clipboard}/bin/wl-paste"
+            "--watch"
+            "${pkgs.cliphist}/bin/cliphist"
+            "store"
+          ]
+        ];
+
+        window-rules = [
+          # rounded corners for all windows
+          {
+            geometry-corner-radius = 12;
+            clip-to-geometry = true;
+          }
+        ];
+
+        binds =
+          {
+            "Mod+Shift+Return".spawn = "footclient";
+            "Mod+Space".spawn = "fuzzel";
+            "Mod+Shift+Slash".show-hotkey-overlay = [ ];
+            "Ctrl+Alt+Delete".quit = [ ];
+
+            "Mod+BracketLeft".consume-or-expel-window-left = [ ];
+            "Mod+BracketRight".consume-or-expel-window-right = [ ];
+            "Mod+Comma".consume-window-into-column = [ ];
+            "Mod+Period".expel-window-from-column = [ ];
+
+            "Mod+R".switch-preset-column-width = [ ];
+            "Mod+F".maximize-column = [ ];
+            "Mod+Shift+F".fullscreen-window = [ ];
+            "Mod+M".maximize-window-to-edges = [ ];
+            "Mod+C".center-column = [ ];
+            "Mod+Ctrl+C".center-visible-columns = [ ]; # ?
+            "Mod+V".toggle-window-floating = [ ];
+            "Mod+Shift+V".switch-focus-between-floating-and-tiling = [ ];
+            "Mod+W".toggle-column-tabbed-display = [ ];
+
+            "Mod+Shift+C" = {
+              close-window = [ ];
+              _attrs = {
+                repeat = false;
+              };
+            };
+            "Mod+O" = {
+              toggle-overview = [ ];
+              _attrs = {
+                repeat = false;
+              };
+            };
+
+            "Mod+H".focus-column-left = [ ];
+            "Mod+J".focus-window-down = [ ];
+            "Mod+K".focus-window-up = [ ];
+            "Mod+L".focus-column-right = [ ];
+            "Mod+Ctrl+H".move-column-left = [ ];
+            "Mod+Ctrl+J".move-window-down = [ ];
+            "Mod+Ctrl+K".move-window-up = [ ];
+            "Mod+Ctrl+L".move-column-right = [ ];
+            "Mod+A".focus-column-first = [ ];
+            "Mod+E".focus-column-last = [ ];
+            "Mod+Shift+A".move-column-to-first = [ ];
+            "Mod+Shift+E".move-column-to-last = [ ];
+            "Mod+U".focus-workspace-up = [ ];
+            "Mod+D".focus-workspace-down = [ ];
+            "Mod+Ctrl+U".move-column-to-workspace-up = [ ];
+            "Mod+Ctrl+D".move-column-to-workspace-down = [ ];
+            "Mod+Shift+U".move-workspace-up = [ ];
+            "Mod+Shift+D".move-workspace-down = [ ];
+
+            # Mouse
+            # TODO: add cooldown-ms to rate-limit
+            "Mod+WheelScrollDown".focus-workspace-down = [ ];
+            "Mod+WheelScrollUp".focus-workspace-up = [ ];
+            "Mod+Ctrl+WheelScrollDown".move-column-to-workspace-down = [ ];
+            "Mod+Ctrl+WheelScrollUp".move-column-to-workspace-up = [ ];
+            # TODO: END
+            "Mod+WheelScrollRight".focus-column-right = [ ];
+            "Mod+WheelScrollLeft".focus-column-left = [ ];
+            "Mod+Ctrl+WheelScrollRight".move-column-right = [ ];
+            "Mod+Ctrl+WheelScrollLeft".move-column-left = [ ];
+            # Emulate horizontal scrolling
+            "Mod+Shift+WheelScrollDown".focus-column-right = [ ];
+            "Mod+Shift+WheelScrollUp".focus-column-left = [ ];
+            "Mod+Ctrl+Shift+WheelScrollDown".move-column-right = [ ];
+            "Mod+Ctrl+Shift+WheelScrollUp".move-column-left = [ ];
+
+            # TODO: inhibiting
+
+            # Volume
+            # TODO: allow when locked
+            "XF86AudioRaiseVolume".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.0";
+            "XF86AudioLowerVolume".spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
+            "XF86AudioMute".spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+
+            # Backlight
+            # TODO: allow when locked
+            "XF86MonBrightnessUp".spawn-sh = "brightnessctl set +10%";
+            "XF86MonBrightnessDown".spawn-sh = "brightnessctl set 10%-";
+
+            # Media
+            # TODO: allow when locked
+            "XF86AudioPlay".spawn-sh = "playerctl play-pause";
+            "XF86AudioStop".spawn-sh = "playerctl stop";
+            "XF86AudioPrev".spawn-sh = "playerctl previous";
+            "XF86AudioNext".spawn-sh = "playerctl next";
+
+            # Screenshots
+            "Mod+Print".screenshot = [ ];
+            "Print".screenshot-screen = [ ];
+            "Alt+Print".screenshot-window = [ ];
+          }
+          # MOD+N = focus-workspace N, MOD+Ctrl+N = move-column-to-workspace N
+          |> (
+            base:
+            let
+              config = [
+                {
+                  mod = "";
+                  action = "focus-workspace";
+                }
+                {
+                  mod = "Ctrl+";
+                  action = "move-column-to-workspace";
+                }
+              ];
+              makeAttrs =
+                cfg:
+                lib.range 1 9
+                |> map (n: {
+                  name = "Mod+${cfg.mod}${toString n}";
+                  value = {
+                    "${cfg.action}" = n;
+                  };
+                })
+                |> builtins.listToAttrs;
+            in
+            base // (builtins.foldl' (acc: cfg: acc // makeAttrs cfg) { } config)
+          );
+      };
+    }).wrapper;
+in
 {
-  programs.niri = {
-    settings = {
-      hotkey-overlay.skip-at-startup = true;
-      clipboard.disable-primary = true;
-      prefer-no-csd = true;
-      screenshot-path = "~/pictures/screenshots/%Y-%m-%dT%H:%M:%S.png";
-      xwayland-satellite.path = "${lib.getExe pkgs.xwayland-satellite-unstable}";
+  home.packages = [
+    wrappedNiri
+    pkgs.xdg-desktop-portal-gtk
+    pkgs.xdg-desktop-portal-gnome
+    pkgs.nautilus
+    pkgs.waypipe
+  ];
 
-      input.keyboard = {
-        numlock = true;
-        repeat-delay = 400;
-        repeat-rate = 30;
+  # Override the niri service to use the wrapped niri binary
+  systemd.user.services.niri = {
+    Unit = {
+      Description = "A scrollable-tiling Wayland compositor";
+      BindsTo = "graphical-session.target";
+      Before = "graphical-session.target";
+      Wants = [
+        "graphical-session-pre.target"
+        "xdg-desktop-autostart.target"
+      ];
+      After = "graphical-session-pre.target";
+      # Prevent restarting the service on configuration changes
+      X-RestartIfChanged = false;
+      X-StopIfChanged = false;
+    };
+    Service = {
+      Slice = "session.slice";
+      Type = "notify";
+      ExecStart = "${wrappedNiri}/bin/niri --session";
+    };
+  };
+
+  # XDG portals
+  xdg.portal = {
+    enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-gnome
+    ];
+    config = {
+      common = {
+        default = [ "gtk" ];
+        "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
       };
-
-      binds = {
-        "Mod+Shift+Return".action.spawn = "footclient";
-        "Mod+Space".action.spawn = "fuzzel";
-        "Mod+Shift+Slash".action.show-hotkey-overlay = [ ];
-
-        # Core
-        "Ctrl+Alt+Delete".action.quit = [ ];
-        # TODO: make a fn
-        "Mod+1".action.focus-workspace = 1;
-        "Mod+2".action.focus-workspace = 2;
-        "Mod+3".action.focus-workspace = 3;
-        "Mod+4".action.focus-workspace = 4;
-        "Mod+5".action.focus-workspace = 5;
-        "Mod+6".action.focus-workspace = 6;
-        "Mod+7".action.focus-workspace = 7;
-        "Mod+8".action.focus-workspace = 8;
-        "Mod+9".action.focus-workspace = 9;
-        # TODO: see if move-window-to-workspace is better
-        "Mod+Ctrl+1".action.move-column-to-workspace = 1;
-        "Mod+Ctrl+2".action.move-column-to-workspace = 2;
-        "Mod+Ctrl+3".action.move-column-to-workspace = 3;
-        "Mod+Ctrl+4".action.move-column-to-workspace = 4;
-        "Mod+Ctrl+5".action.move-column-to-workspace = 5;
-        "Mod+Ctrl+6".action.move-column-to-workspace = 6;
-        "Mod+Ctrl+7".action.move-column-to-workspace = 7;
-        "Mod+Ctrl+8".action.move-column-to-workspace = 8;
-        "Mod+Ctrl+9".action.move-column-to-workspace = 9;
-
-        "Mod+BracketLeft".action.consume-or-expel-window-left = [ ];
-        "Mod+BracketRight".action.consume-or-expel-window-right = [ ];
-        "Mod+Comma".action.consume-window-into-column = [ ];
-        "Mod+Period".action.expel-window-from-column = [ ];
-
-        "Mod+R".action.switch-preset-column-width = [ ];
-        "Mod+F".action.maximize-column = [ ];
-        "Mod+Shift+F".action.fullscreen-window = [ ];
-        "Mod+M".action.maximize-window-to-edges = [ ];
-        "Mod+C".action.center-column = [ ];
-        "Mod+Ctrl+C".action.center-visible-columns = [ ]; # ?
-        "Mod+V".action.toggle-window-floating = [ ];
-        "Mod+Shift+V".action.switch-focus-between-floating-and-tiling = [ ];
-        "Mod+W".action.toggle-column-tabbed-display = [ ];
-
-        "Mod+Shift+C".action.close-window = [ ]; # TODO: repeat=false
-        "Mod+O".action.toggle-overview = [ ]; # TODO: repeat=false
-        "Mod+H".action.focus-column-left = [ ];
-        "Mod+J".action.focus-window-down = [ ];
-        "Mod+K".action.focus-window-up = [ ];
-        "Mod+L".action.focus-column-right = [ ];
-        "Mod+Ctrl+H".action.move-column-left = [ ];
-        "Mod+Ctrl+J".action.move-window-down = [ ];
-        "Mod+Ctrl+K".action.move-window-up = [ ];
-        "Mod+Ctrl+L".action.move-column-right = [ ];
-        "Mod+A".action.focus-column-first = [ ];
-        "Mod+E".action.focus-column-last = [ ];
-        "Mod+Shift+A".action.move-column-to-first = [ ];
-        "Mod+Shift+E".action.move-column-to-last = [ ];
-        "Mod+U".action.focus-workspace-up = [ ];
-        "Mod+D".action.focus-workspace-down = [ ];
-        "Mod+Ctrl+U".action.move-column-to-workspace-up = [ ];
-        "Mod+Ctrl+D".action.move-column-to-workspace-down = [ ];
-        "Mod+Shift+U".action.move-workspace-up = [ ];
-        "Mod+Shift+D".action.move-workspace-down = [ ];
-
-        # Mouse
-        # TODO: add cooldown-ms to rate-limit
-        "Mod+WheelScrollDown".action.focus-workspace-down = [ ];
-        "Mod+WheelScrollUp".action.focus-workspace-up = [ ];
-        "Mod+Ctrl+WheelScrollDown".action.move-column-to-workspace-down = [ ];
-        "Mod+Ctrl+WheelScrollUp".action.move-column-to-workspace-up = [ ];
-        # TODO: END
-        "Mod+WheelScrollRight".action.focus-column-right = [ ];
-        "Mod+WheelScrollLeft".action.focus-column-left = [ ];
-        "Mod+Ctrl+WheelScrollRight".action.move-column-right = [ ];
-        "Mod+Ctrl+WheelScrollLeft".action.move-column-left = [ ];
-        # Emulate horizontal scrolling
-        "Mod+Shift+WheelScrollDown".action.focus-column-right = [ ];
-        "Mod+Shift+WheelScrollUp".action.focus-column-left = [ ];
-        "Mod+Ctrl+Shift+WheelScrollDown".action.move-column-right = [ ];
-        "Mod+Ctrl+Shift+WheelScrollUp".action.move-column-left = [ ];
-
-        # TODO: inhibiting
-
-        # Volume
-        # TODO: allow when locked
-        "XF86AudioRaiseVolume".action.spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.0";
-        "XF86AudioLowerVolume".action.spawn-sh = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
-        "XF86AudioMute".action.spawn-sh = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-
-        # Backlight
-        # TODO: allow when locked
-        "XF86MonBrightnessUp".action.spawn-sh = "brightnessctl set +10%";
-        "XF86MonBrightnessDown".action.spawn-sh = "brightnessctl set 10%-";
-
-        # Media
-        # TODO: allow when locked
-        "XF86AudioPlay".action.spawn-sh = "playerctl play-pause";
-        "XF86AudioStop".action.spawn-sh = "playerctl stop";
-        "XF86AudioPrev".action.spawn-sh = "playerctl previous";
-        "XF86AudioNext".action.spawn-sh = "playerctl next";
-
-        # Screenshots
-        "Mod+Print".action.screenshot = [ ];
-        "Print".action.screenshot-screen = [ ];
-        "Alt+Print".action.screenshot-window = [ ];
+      niri = {
+        default = [
+          "gnome"
+          "gtk"
+        ];
+        "org.freedesktop.impl.portal.Screenshot" = [ "gnome" ];
+        "org.freedesktop.impl.portal.ScreenCast" = [ "gnome" ];
       };
+    };
+  };
+
+  # Prefer dark mode for portal UI settings
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = lib.mkDefault "prefer-dark";
     };
   };
 }

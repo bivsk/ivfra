@@ -4,14 +4,6 @@
     inputs.noctalia.homeModules.default
   ];
 
-  programs.niri.settings = {
-    spawn-at-startup = [
-      {
-        command = [ "noctalia-shell" ];
-      }
-    ];
-  };
-
   programs.noctalia-shell = {
     enable = true;
     settings = {
