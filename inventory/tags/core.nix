@@ -135,6 +135,7 @@
       group = "four";
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJdipg6qr0s4he1E/k38S1wR+viUH/dycyMRYmWQQdKv bivsk@tutanota.com"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDtreSl8MBVkIh9x/NcvF0Bhg79hVIE2Jzak4rZ4tV4x JuiceSSH"
       ];
     };
     groups.four = { };

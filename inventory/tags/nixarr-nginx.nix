@@ -8,7 +8,7 @@
   # Proxies
   services.nginx = {
     enable = true;
-    clientMaxBodySize = "20M"; # TODO: only jellyfin
+    # clientMaxBodySize = "20M";
     recommendedProxySettings = true;
 
     virtualHosts = {
@@ -20,6 +20,7 @@
           proxyPass = "http://sunny:8096";
           extraConfig = ''
             proxy_buffering off;
+            client_max_body_size 20M;
           '';
         };
         locations."/socket" = {

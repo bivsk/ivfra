@@ -2,6 +2,8 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    adios-flake.url = "github:Mic92/adios-flake";
+
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     clan-core = {
@@ -58,6 +60,8 @@
       inputs.flake-parts.follows = "flake-parts";
     };
 
+    pre-commit-hooks-nix.url = "github:cachix/pre-commit-hooks.nix";
+
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -111,39 +115,25 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
+
   outputs =
-    inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
-      # Enable debug mode for nix repl introspection: nix repl .#debug
-      debug = true;
+    inputs@{ adios-flake, ... }:
 
-      imports = [
-        # Enable partitions for lazy input fetching
-        inputs.flake-parts.flakeModules.partitions
-
-        # Core
-        ./parts/clan.nix
-        ./parts/lib.nix
-        ./parts/flake-modules.nix
-      ];
-
+    adios-flake.lib.mkFlake {
+      inherit inputs;
+      inherit (inputs) self;
       systems = [ "x86_64-linux" ];
 
-      # Partition dev outputs so dev inputs are only fetched when needed
-      # Building nixosConfigurations won't fetch treefmt-nix, pre-commit-hooks, etc.
-      partitionedAttrs = {
-        checks = "dev";
-        devShells = "dev";
-        formatter = "dev";
-        packages = "dev";
-        # Custom transposed outputs
-        analysisTools = "dev";
-        # clanTools = "dev";
-      };
+      modules = [
+        ./flake-outputs/dev-env.nix
+      ];
 
-      partitions.dev = {
-        extraInputsFlake = ./dev;
-        module = ./dev/flake-module.nix;
-      };
+      flake =
+        # Evaluate clan outside of mkFlake since it produces system-agnostic outputs.
+        import ./flake-outputs/clan.nix {
+          inherit inputs;
+          inherit (inputs) self;
+        };
+      # // (import ./flake-outputs/effects.nix { inherit inputs; });
     };
 }

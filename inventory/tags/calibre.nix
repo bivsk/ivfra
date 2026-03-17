@@ -6,7 +6,7 @@ in
 {
   services.calibre-server = {
     enable = true;
-    port = port;
+    inherit port;
     auth = {
       enable = true;
       # TODO: make this better
