@@ -2,7 +2,7 @@
 {
   environment.systemPackages = with pkgs; [
     # Bitwarden clients for Vaultwarden
-    # bitwarden-desktop
+    bitwarden-desktop
     bitwarden-cli
 
     # YubiKey management tools

@@ -23,6 +23,6 @@
 
   environment.systemPackages = with pkgs; [
     mangohud
-    # heroic
+    heroic
   ];
 }

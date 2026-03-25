@@ -56,6 +56,7 @@ _: {
         "niri"
         "nixarr"
         "password-manager"
+        "qmk"
         "stylix"
         "tailnet-bivsk"
         "hm-desktop"

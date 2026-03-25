@@ -12,7 +12,6 @@
 
   services = {
     fprintd.enable = true;
-
     logind.settings.Login.HandlePowerKey = "lock"; # default is poweroff
   };
 

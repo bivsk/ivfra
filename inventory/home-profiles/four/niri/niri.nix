@@ -15,10 +15,17 @@ let
         screenshot-path = "~/pictures/screenshots/%Y-%m-%dT%H:%M:%S.png";
         xwayland-satellite.path = "${lib.getExe pkgs.xwayland-satellite-unstable}";
 
-        input.keyboard = {
-          numlock = true;
-          repeat-delay = 400;
-          repeat-rate = 30;
+        input = {
+          keyboard = {
+            numlock = true;
+            repeat-delay = 400;
+            repeat-rate = 30;
+          };
+          touchpad = {
+            tap = [ ];
+            natural-scroll = [ ];
+            # middle-emulation = [ ];
+          };
         };
 
         overview.zoom = 0.7;
@@ -84,23 +91,19 @@ let
             };
 
             "Mod+H".focus-column-left = [ ];
-            "Mod+J".focus-window-down = [ ];
-            "Mod+K".focus-window-up = [ ];
             "Mod+L".focus-column-right = [ ];
             "Mod+Ctrl+H".move-column-left = [ ];
-            "Mod+Ctrl+J".move-window-down = [ ];
-            "Mod+Ctrl+K".move-window-up = [ ];
             "Mod+Ctrl+L".move-column-right = [ ];
             "Mod+A".focus-column-first = [ ];
             "Mod+E".focus-column-last = [ ];
             "Mod+Shift+A".move-column-to-first = [ ];
             "Mod+Shift+E".move-column-to-last = [ ];
-            "Mod+U".focus-workspace-up = [ ];
-            "Mod+D".focus-workspace-down = [ ];
-            "Mod+Ctrl+U".move-column-to-workspace-up = [ ];
-            "Mod+Ctrl+D".move-column-to-workspace-down = [ ];
-            "Mod+Shift+U".move-workspace-up = [ ];
-            "Mod+Shift+D".move-workspace-down = [ ];
+            "Mod+K".focus-workspace-up = [ ];
+            "Mod+J".focus-workspace-down = [ ];
+            "Mod+Ctrl+K".move-column-to-workspace-up = [ ];
+            "Mod+Ctrl+J".move-column-to-workspace-down = [ ];
+            "Mod+Shift+K".move-workspace-up = [ ];
+            "Mod+Shift+J".move-workspace-down = [ ];
 
             # Mouse
             # TODO: add cooldown-ms to rate-limit

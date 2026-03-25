@@ -16,6 +16,7 @@ _: {
           "video"
           "audio"
           "input"
+          "plugdev"
           "kvm"
         ];
       };
