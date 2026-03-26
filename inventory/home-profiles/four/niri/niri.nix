@@ -56,9 +56,12 @@ let
         ];
 
         binds =
+          let
+            ipc = target: action: "noctalia-shell ipc call ${target} ${action}";
+          in
           {
             "Mod+Shift+Return".spawn = "footclient";
-            "Mod+Space".spawn = "fuzzel";
+            "Mod+Space".spawn-sh = ipc "launcher" "toggle";
             "Mod+Shift+Slash".show-hotkey-overlay = [ ];
             "Ctrl+Alt+Delete".quit = [ ];
 
