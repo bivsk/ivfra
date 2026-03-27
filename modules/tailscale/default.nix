@@ -65,18 +65,11 @@ _: {
 
             clan.core.vars.generators."${generatorName}" = {
               share = true;
-              files.auth_key = { };
-              runtimeInputs = [ pkgs.coreutils ];
-
               prompts.auth_key = {
                 description = "Tailscale auth key for instance '${instanceName}'";
                 type = "hidden";
                 persist = true;
               };
-
-              script = ''
-                cat "$prompts"/auth_key > "$out"/auth_key
-              '';
             };
 
             services.tailscale = finalSettings // {
