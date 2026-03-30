@@ -49,6 +49,11 @@
     libinput.enable = true;
     printing.enable = true;
 
+    mullvad-vpn = {
+      enable = true;
+      package = pkgs.mullvad-vpn;
+    };
+
     # Caps Lock -> Esc on tap, Ctrl on hold
     keyd = {
       enable = true;
