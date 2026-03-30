@@ -34,6 +34,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    statix = {
+      url = "github:molybdenumsoftware/statix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
+
     stylix = {
       url = "github:danth/stylix";
       inputs = {
@@ -117,7 +125,6 @@
 
   outputs =
     inputs@{ adios-flake, ... }:
-
     adios-flake.lib.mkFlake {
       inherit inputs;
       inherit (inputs) self;

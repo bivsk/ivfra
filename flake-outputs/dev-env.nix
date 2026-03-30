@@ -7,6 +7,9 @@
   ...
 }:
 let
+  # statix from molybdenum - supports pipe-operators
+  statixPkg = inputs'.statix.default;
+
   treefmtEval = inputs'.treefmt-nix.lib.evalModule pkgs {
     programs = {
       # Nix — priority: deadnix (1) → statix (2) → nixfmt (3)
@@ -14,8 +17,11 @@ let
       deadnix.enable = true;
       deadnix.priority = 1;
 
-      statix.enable = true;
-      statix.priority = 2;
+      statix = {
+        enable = true;
+        priority = 2;
+        package = statixPkg;
+      };
 
       nixfmt = {
         enable = true;
@@ -127,6 +133,7 @@ let
                 pass_filenames = false;
               };
               statix.enable = true;
+              statix.package = statixPkg;
               deadnix.enable = true;
             };
             excludes = [
@@ -158,6 +165,7 @@ in
     default = pkgs.mkShell {
       packages = [
         inputs'.clan-core.clan-cli
+        statixPkg
         preCommitEval.package
         pkgs.kanidmWithSecretProvisioning_1_9
       ]

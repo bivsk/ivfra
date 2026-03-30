@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 {
   # Search and file tools
   programs = {
@@ -46,35 +51,37 @@
     lg = "lazygit";
   };
 
-  home.packages = with pkgs; [
-    # Files
-    glow
-    unzip
+  home.packages =
+    with pkgs;
+    [
+      # Files
+      glow
+      unzip
 
-    # Nix
-    deadnix
-    dix
-    nixos-generators
-    nix-output-monitor
-    nix-prefetch
-    nix-search-tv
-    statix
+      # Nix
+      deadnix
+      dix
+      nixos-generators
+      nix-output-monitor
+      nix-prefetch
+      nix-search-tv
 
-    # AI
-    claude-code
+      # AI
+      claude-code
 
-    # Network
-    traceroute
-    wget
+      # Network
+      traceroute
+      wget
 
-    # Code quality
-    shellcheck
-    ruff
-    mypy
+      # Code quality
+      shellcheck
+      ruff
+      mypy
 
-    # Misc.
-    ast-grep
-    gdb
-    tokei
-  ];
+      # Misc.
+      ast-grep
+      gdb
+      tokei
+    ]
+    ++ lib.singleton inputs.statix.packages.${pkgs.stdenv.hostPlatform.system}.default;
 }
