@@ -18,10 +18,15 @@
     determinate = {
       url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
       inputs = {
-        # nixpkgs.follows = "nixpkgs";
-        # nix.inputs.nixpkgs.follows = "nixpkgs";
-        # nix.inputs.flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        nix.inputs.flake-parts.follows = "flake-parts";
+        nix.inputs.git-hooks-nix.follows = "";
       };
+    };
+
+    helium = {
+      url = "github:amaanq/helium-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     home-manager = {
@@ -59,6 +64,7 @@
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.noctalia-qs.inputs.treefmt-nix.follows = "treefmt-nix";
     };
 
     hercules-ci-effects = {
@@ -67,7 +73,10 @@
       inputs.flake-parts.follows = "flake-parts";
     };
 
-    pre-commit-hooks-nix.url = "github:cachix/pre-commit-hooks.nix";
+    pre-commit-hooks-nix = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
