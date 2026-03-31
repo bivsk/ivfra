@@ -29,8 +29,8 @@
         };
       };
 
-      # seerr
-      "seerr.bivsk.com" = {
+      # jellyseerr
+      "jellyseerr.bivsk.com" = {
         forceSSL = true;
         enableACME = true;
         extraConfig = ''
