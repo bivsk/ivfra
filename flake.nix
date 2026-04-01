@@ -108,6 +108,15 @@
       };
     };
 
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "dedupe-flake-parts";
+        systems.follows = "dedupe-systems";
+      };
+    };
+
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
       inputs = {
@@ -156,6 +165,7 @@
 
       modules = [
         ./flake-outputs/dev-env.nix
+        ./flake-outputs/nixvim
       ];
 
       flake =
