@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   neovimVersion = pkgs.neovim.version or "0.0";
   hasNeovim012OrNewer = lib.versionAtLeast neovimVersion "0.12";
@@ -6,8 +11,16 @@ in
 {
   clipboard.register = "unnamedplus";
 
-  colorscheme = "kanagawa";
-  colorschemes.kanagawa.enable = true;
+  colorschemes.everforest = {
+    enable = true;
+    lazyLoad.enable = config.plugins.lz-n.enable;
+
+    settings = {
+      diagnostic_line_highlight = 1;
+      diagnostic_text_highlight = 1;
+      transparent_background = 1;
+    };
+  };
   luaLoader.enable = true;
 
   globals = {
@@ -137,4 +150,6 @@ in
     completetimeout = 100;
   };
 
+  viAlias = true;
+  vimAlias = true;
 }

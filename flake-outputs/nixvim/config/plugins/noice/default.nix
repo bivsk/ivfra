@@ -187,13 +187,13 @@
         views = {
           cmdline_popup = {
             border = {
-              style = "single";
+              style = "rounded";
             };
           };
 
           confirm = {
             border = {
-              style = "single";
+              style = "rounded";
               text = {
                 top = "";
               };
