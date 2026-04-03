@@ -22,7 +22,7 @@
     enable = true;
 
     settings = {
-      indent.enabled = true;
+      indent.enabled = false;
       input.enabled = true;
       scroll.enabled = true;
       statuscolumn = {
