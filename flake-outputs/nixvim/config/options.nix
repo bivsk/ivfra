@@ -38,6 +38,9 @@ in
     timeoutlen = 500; # Key sequence timeout (ms)
     smoothscroll = true; # Smooth scrolling with Ctrl-D/U
 
+    # Shell
+    shell = lib.meta.getExe pkgs.nushell;
+
     # Project local config
     exrc = true; # Enable .nvim.lua, .nvimrc, .exrc in project dirs
 

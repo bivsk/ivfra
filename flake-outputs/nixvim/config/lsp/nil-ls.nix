@@ -7,7 +7,7 @@
   # nil documentation
   # See: https://github.com/oxalica/nil
   lsp.servers.nil_ls = {
-    enable = false;
+    enable = true;
 
     config.settings = {
       formatting = {

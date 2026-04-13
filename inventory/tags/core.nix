@@ -41,10 +41,7 @@
       keep-outputs = true;
       keep-derivations = true;
 
-      trusted-users = [
-        "root"
-        "four"
-      ];
+      trusted-users = [ "four" ];
 
       # Make legacy nix commands use XDG base dirs
       use-xdg-base-directories = true;
@@ -109,6 +106,7 @@
   };
 
   programs = {
+    # TODO: wrap
     htop = {
       enable = true;
       settings = {
@@ -122,12 +120,6 @@
     };
 
     nano.enable = false;
-    neovim = {
-      enable = true;
-      viAlias = true;
-      vimAlias = true;
-      defaultEditor = true;
-    };
   };
 
   users = {
@@ -136,7 +128,9 @@
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJdipg6qr0s4he1E/k38S1wR+viUH/dycyMRYmWQQdKv bivsk@tutanota.com"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDtreSl8MBVkIh9x/NcvF0Bhg79hVIE2Jzak4rZ4tV4x JuiceSSH"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDbrHCxT2L25bccuSVtCFKmDJpKrkLdMS3vt2oAvydbI"
       ];
+      shell = lib.mkForce pkgs.nushell; # TODO: move to nushell module/wrapped nushell
     };
     groups.four = { };
     users.root.openssh.authorizedKeys.keys = [

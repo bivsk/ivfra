@@ -161,7 +161,10 @@
     adios-flake.lib.mkFlake {
       inherit inputs;
       inherit (inputs) self;
-      systems = [ "x86_64-linux" ];
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
 
       modules = [
         ./flake-outputs/dev-env.nix

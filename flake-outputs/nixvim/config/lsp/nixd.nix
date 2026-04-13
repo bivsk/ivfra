@@ -10,9 +10,8 @@
     enable = true;
 
     config.settings.nixd = {
-      formatting = {
-        command = [ "${lib.meta.getExe pkgs.nixfmt}" ];
-      };
+      formatting.command = [ "${lib.meta.getExe pkgs.nixfmt}" ];
+      nixpkgs.expr = "import <nixpkgs> {}";
     };
   };
 }

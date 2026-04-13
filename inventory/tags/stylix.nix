@@ -6,7 +6,7 @@
   ...
 }:
 let
-  theme = "kanagawa"; # https://github.com/tinted-theming/schemes/tree/spec-0.11/base16/
+  theme = "everforest-dark-medium"; # https://github.com/tinted-theming/schemes/tree/spec-0.11/base16/
 in
 {
   imports = [ inputs.stylix.nixosModules.stylix ];

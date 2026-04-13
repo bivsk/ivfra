@@ -47,6 +47,7 @@
         ];
       };
       cmake.enable = true;
+      copilot.enable = true;
       cssls.enable = true;
       dockerls.enable = true;
       docker_language_server.enable = true;
