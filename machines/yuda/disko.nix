@@ -3,7 +3,7 @@
   disko.devices = {
     disk = {
       main = {
-        device = "/dev/sda";
+        device = "/dev/disk/by-id/ata-ST500DM002-1BD142_S2A9EZXD";
         type = "disk";
         content = {
           type = "gpt";
@@ -57,16 +57,6 @@
           "local/root" = {
             type = "zfs_fs";
             mountpoint = "/";
-          };
-
-          # backed up datasets
-          "safe" = {
-            type = "zfs_fs";
-            options.mountpoint = "none";
-          };
-          "safe/vault" = {
-            type = "zfs_fs";
-            options.mountpoint = "/vault";
           };
         };
       };

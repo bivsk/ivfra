@@ -11,7 +11,7 @@ _: {
       ];
       deploy = {
         targetHost = "root@watch.bivsk.com";
-        buildHost = "root@sunny";
+        buildHost = "root@192.168.0.22";
       };
     };
 
@@ -35,7 +35,7 @@ _: {
       ];
       deploy = {
         targetHost = "root@192.168.0.29";
-        buildHost = "";
+        buildHost = "root@192.168.0.22";
       };
     };
 
@@ -64,7 +64,7 @@ _: {
         "hm-desktop"
       ];
       deploy = {
-        targetHost = "root@127.0.0.1";
+        targetHost = "root@192.168.0.22";
         buildHost = "";
       };
     };
@@ -76,10 +76,10 @@ _: {
         "tailnet-bivsk"
         "hm-server"
       ];
-      # deploy = {
-      #   targetHost = "root@watch.bivsk.com";
-      #   buildHost = "root@sunny";
-      # };
+      deploy = {
+        targetHost = "root@192.168.0.14";
+        buildHost = "root@192.168.0.22";
+      };
     };
   };
 }

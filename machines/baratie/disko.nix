@@ -1,12 +1,10 @@
 {
   boot.supportedFilesystems = [ "zfs" ];
-  # /dev/disk/by-id doesn't seem to work on virtual disks
-  boot.zfs.devNodes = "/dev/disk/by-uuid";
   networking.hostId = "8425e349";
   disko.devices = {
     disk = {
       main = {
-        device = "/dev/vda";
+        device = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_116192695";
         type = "disk";
         content = {
           type = "gpt";
@@ -60,12 +58,6 @@
           "local/root" = {
             type = "zfs_fs";
             mountpoint = "/";
-          };
-
-          # backed up datasets
-          "safe" = {
-            type = "zfs_fs";
-            options.mountpoint = "none";
           };
         };
       };
