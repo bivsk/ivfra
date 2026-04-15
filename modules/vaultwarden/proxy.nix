@@ -29,11 +29,11 @@
                 };
                 "= /notifications/anonymous-hub" = {
                   proxyPass = "http://vaultwarden";
-                  proxyEnableWebsockets = true;
+                  proxyWebsockets = true;
                 };
                 "= /notifications/hub" = {
                   proxyPass = "http://vaultwarden";
-                  proxyEnableWebsockets = true;
+                  proxyWebsockets = true;
                 };
               };
             };
