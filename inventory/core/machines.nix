@@ -4,14 +4,15 @@ _: {
       name = "baratie";
       tags = [
         "core"
-        "kanidm"
+        # "kanidm"
         "nixarr-nginx"
         "tailnet-bivsk"
         "hm-server"
       ];
       deploy = {
         targetHost = "root@watch.bivsk.com";
-        buildHost = "root@192.168.0.22";
+        buildHost = "four@localhost";
+        forwardAgent = true;
       };
     };
 
@@ -78,7 +79,7 @@ _: {
       ];
       deploy = {
         targetHost = "root@192.168.0.14";
-        buildHost = "root@192.168.0.22";
+        buildHost = "four@192.168.0.22";
       };
     };
   };

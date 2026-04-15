@@ -146,7 +146,7 @@
 
               DATABASE_URL = "postgresql://"; # should be default upstream if dbBackend = pg
               INVITATIONS_ALLOWED = true;
-              ROCKET_ADDRESS = "yuda"; # TODO: shouldn't hard code this
+              ROCKET_ADDRESS = "100.122.28.104"; # TODO: shouldn't hard code this
               SHOW_PASSWORD_HINT = false;
               WEBSOCKET_ENABLED = true;
             }

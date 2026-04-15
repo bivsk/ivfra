@@ -10,6 +10,7 @@
     enable = true;
     # clientMaxBodySize = "20M";
     recommendedProxySettings = true;
+    recommendedTlsSettings = true;
 
     virtualHosts = {
       # jellyfin

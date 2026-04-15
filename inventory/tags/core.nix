@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   lib,
   pkgs,
@@ -7,6 +8,7 @@
 {
   nixpkgs.config.allowUnfree = true;
   clan.core.settings.state-version.enable = true;
+  clan.core.networking.forwardAgent = true;
 
   # Use determinate nix
   # https://determinate.systems/nix/
@@ -122,21 +124,29 @@
     nano.enable = false;
   };
 
-  users = {
-    users.four = {
-      group = "four";
-      openssh.authorizedKeys.keys = [
+  users =
+    let
+      sunnyHostKey = builtins.readFile (
+        config.clan.core.settings.directory + "/vars/per-machine/sunny/openssh/ssh.id_ed25519.pub/value"
+      );
+    in
+    {
+      users.four = {
+        group = "four";
+        openssh.authorizedKeys.keys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJdipg6qr0s4he1E/k38S1wR+viUH/dycyMRYmWQQdKv bivsk@tutanota.com"
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDtreSl8MBVkIh9x/NcvF0Bhg79hVIE2Jzak4rZ4tV4x JuiceSSH"
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDbrHCxT2L25bccuSVtCFKmDJpKrkLdMS3vt2oAvydbI"
+          sunnyHostKey
+        ];
+        shell = lib.mkForce pkgs.nushell; # TODO: move to nushell module/wrapped nushell
+      };
+      groups.four = { };
+      users.root.openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJdipg6qr0s4he1E/k38S1wR+viUH/dycyMRYmWQQdKv bivsk@tutanota.com"
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDtreSl8MBVkIh9x/NcvF0Bhg79hVIE2Jzak4rZ4tV4x JuiceSSH"
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDbrHCxT2L25bccuSVtCFKmDJpKrkLdMS3vt2oAvydbI"
+        sunnyHostKey
       ];
-      shell = lib.mkForce pkgs.nushell; # TODO: move to nushell module/wrapped nushell
     };
-    groups.four = { };
-    users.root.openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJdipg6qr0s4he1E/k38S1wR+viUH/dycyMRYmWQQdKv bivsk@tutanota.com"
-    ];
-  };
 
   time.timeZone = "America/New_York";
 
