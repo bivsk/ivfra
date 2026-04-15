@@ -1,10 +1,6 @@
 { pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    # Bitwarden clients for Vaultwarden
-    bitwarden-desktop
-    bitwarden-cli
-
     # YubiKey management tools
     yubikey-manager # CLI tool (ykman command)
     yubioath-flutter # GUI for YubiKey
