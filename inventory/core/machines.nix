@@ -68,5 +68,18 @@ _: {
         buildHost = "";
       };
     };
+
+    yuda = {
+      name = "yuda";
+      tags = [
+        "core"
+        "tailnet-bivsk"
+        "hm-server"
+      ];
+      # deploy = {
+      #   targetHost = "root@watch.bivsk.com";
+      #   buildHost = "root@sunny";
+      # };
+    };
   };
 }
