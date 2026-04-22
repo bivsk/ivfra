@@ -11,8 +11,9 @@
       desktop = null;
       documents = "$HOME/docs";
       download = "$HOME/downloads";
-      music = "$HOME/music";
+      music = null;
       pictures = "$HOME/pictures";
+      projects = "$HOME/dev";
       publicShare = null;
       videos = "$HOME/videos";
       templates = null;
