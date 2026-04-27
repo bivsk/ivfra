@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, lib, ... }:
 {
   imports = [
     inputs.nixos-hardware.nixosModules.framework-13-7040-amd
@@ -24,4 +24,7 @@
       login.fprintAuth = false;
     };
   };
+
+  time.timeZone = lib.mkForce null;
+  services.automatic-timezoned.enable = true;
 }
