@@ -34,7 +34,6 @@
       enable = true;
       openFirewall = true;
     };
-    readarr.enable = true;
     sonarr = {
       enable = true;
       openFirewall = true;
