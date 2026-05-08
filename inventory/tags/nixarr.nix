@@ -25,7 +25,7 @@
       enable = true;
       openFirewall = true;
     };
-    jellyseerr = {
+    seerr = {
       enable = true;
       openFirewall = true;
     };
