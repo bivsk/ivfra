@@ -2,6 +2,7 @@
 
 {
   hardware.keyboard.qmk.enable = true;
+  # TODO: use proper upstream file
   services.udev.extraRules = ''
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="0003", , MODE:="0666", GROUP="plugdev"
   '';
