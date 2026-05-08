@@ -1,68 +1,58 @@
-{ pkgs, ... }:
-
+{ lib, pkgs, ... }:
+let
+  brokenVersion = "2.6.13";
+  currentVersion = pkgs.openldap.version;
+in
 {
   programs.lutris = {
     enable = true;
+    package =
+      lib.throwIf (currentVersion != brokenVersion)
+        ''
+          Re-check whether disabling i686 tests is still required:
+            https://github.com/NixOS/nixpkgs/issues/513245
 
-    extraPackages = with pkgs; [
-      # Graphics libraries
-      vulkan-tools
-      vulkan-loader
-      vulkan-validation-layers
-      mesa
-      mesa-demos
+          If upstream has not fixed, bump `brokenVersion` to ${currentVersion}.
+          If fixed, revert to default lutris package with tests enabled.
+        ''
+        (
+          pkgs.lutris.override {
+            # Intercept buildFHSEnv to modify target packages
+            buildFHSEnv =
+              args:
+              pkgs.buildFHSEnv (
+                args
+                // {
+                  multiPkgs =
+                    envPkgs:
+                    let
+                      # Fetch original package list
+                      originalPkgs = args.multiPkgs envPkgs;
 
-      # Audio
-      pipewire
-      pulseaudio
-      alsa-lib
-      alsa-plugins
+                      # Disable tests for openldap
+                      customLdap = envPkgs.openldap.overrideAttrs (_: {
+                        doCheck = false;
+                      });
+                    in
+                    # Replace broken openldap with the custom one
+                    builtins.filter (p: (p.pname or "") != "openldap") originalPkgs ++ [ customLdap ];
+                }
+              );
+          }
+        );
 
-      # Controllers
-      gamemode
-      gamescope
-      mangohud
-
-      # Additional runtime dependencies
-      libgdiplus
-      gnutls
-      openldap
-      libxml2
-      libxslt
-      libva
-      gtk3
-      gdk-pixbuf
-
-      # Media codecs
-      ffmpeg
-      gst_all_1.gstreamer
-      gst_all_1.gst-plugins-base
-      gst_all_1.gst-plugins-good
-      gst_all_1.gst-plugins-bad
-      gst_all_1.gst-plugins-ugly
+    extraPackages = [
+      pkgs.gamemode
+      pkgs.gamescope
+      pkgs.mangohud
     ];
 
-    winePackages = with pkgs; [
-      wineWow64Packages.staging
-      wineWow64Packages.waylandFull
-      winetricks
+    winePackages = [
+      pkgs.wineWow64Packages.staging
+      pkgs.wineWow64Packages.waylandFull
+      pkgs.winetricks
     ];
 
     protonPackages = [ pkgs.proton-ge-bin ];
-
-    # runners = {
-    #   wine = {
-    #     enable = true;
-    #     package = pkgs.wineWowPackages.staging;
-    #   };
-
-    #   steam = {
-    #     enable = true;
-    #   };
-
-    #   retroarch = {
-    #     enable = true;
-    #   };
-    # };
   };
 }
